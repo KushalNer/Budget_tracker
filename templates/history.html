@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %} History Page
+{% endblock title %}
+{% block head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock head %}
+{% block pbody %}
+
+<div class="min-h-screen bg-gray-100 p-6">
+  <!-- Header -->
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Transaction History</h1>
+    <p class="text-gray-500">Track all your income and expenses</p>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="bg-white shadow rounded p-4">
+      <p class="text-gray-500">Total Income</p>
+      <h2 class="text-xl font-bold text-green-500">{{ total_income }}</h2>
+    </div>
+    <div class="bg-white shadow rounded p-4">
+      <p class="text-gray-500">Total Expenses</p>
+      <h2 class="text-xl font-bold text-red-500">{{ total_expense }}</h2>
+    </div>
+    <div class="bg-white shadow rounded p-4">
+      <p class="text-gray-500">Balance</p>
+      <h2 class="text-xl font-bold text-blue-500">{{current_balance}}</h2>
+    </div>
+  </div>
+
+  <!-- Filters / Tabs -->
+  <div class="flex items-center justify-between mb-4">
+    <form method="post">
+        {% csrf_token %}
+    <div class="flex space-x-2">
+      <button name="type" value="all" class="px-4 py-2 bg-gray-200  rounded hover:bg-blue-500">📈 / 📉All</button>
+      <button name="type" value="income" class="px-4 py-2 bg-gray-200 rounded hover:bg-blue-500">📈Income</button>
+      <button name="type" value="expense"class="px-4 py-2 bg-gray-200 rounded hover:bg-blue-500">📉Expense</button>
+    </div>
+    </form>
+  </div>
+
+  <!-- Transaction Table -->
+  <div class="bg-white shadow rounded overflow-x-auto">
+    <table class="min-w-full text-left">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">Category/Source</th>
+          <th class="px-4 py-2">Amount</th>
+          <th class="px-4 py-2">Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tra in transcations %}
+        <tr class="border-b">
+          <td class="px-4 py-2">{{tra.date}}</td>
+          {% if tra.source == "" %}
+            <td class="px-4 py-2">{{tra.category}}</td>
+          {% else %}
+            <td class="px-4 py-2">{{tra.source}}</td>
+          {% endif %}
+          <td class="px-4 py-2 {% if tra.type == "Income"%}text-green-700 {% else %} text-red-600 {% endif%}">{{tra.amount}}</td>
+          <td class="px-4 py-2">{{tra.type}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Optional Chart Section -->
+  <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-white shadow rounded p-4">
+      <h3 class="font-bold mb-2">Category-wise Spending</h3>
+      <canvas id="categoryChart" width="700" height="400"></canvas>
+    </div>
+    
+    <div class="bg-white shadow rounded p-4">
+      <h3 class="font-bold mb-2">Monthly Income vs Expenses</h3>
+      <canvas id="monthlyBarChart" ></canvas>
+    </div>
+  </div>
+</div>
+
+{% comment %} This script for Pie chart {% endcomment %}
+<script>
+        // Get data from Django context
+        const categories = {{ category_labels|safe }};
+        const totals = {{ category_total|safe }};
+
+        const ctxPie = document.getElementById('categoryChart').getContext('2d');
+        const myChart = new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: categories,
+                datasets: [{
+                    label: 'Total Spending',
+                    data: totals,
+                    backgroundColor: [
+                        '#34D399', '#60A5FA', '#FBBF24', '#F87171', '#A78BFA'
+                    ]
+                }]
+            },
+            options: {
+                responsive: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+
+{% comment %} This script for Bar chart {% endcomment %}
+
+<script>
+        const monthlyLabels = {{ monthly_labels|safe }};
+        const monthlyIncome = {{ monthly_income|safe }};
+        const monthlyExpense = {{ monthly_expense|safe }};
+
+        const ctxBar = document.getElementById('monthlyBarChart').getContext('2d');
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: monthlyLabels,
+                datasets: [
+                    {
+                        label: 'Income',
+                        data: monthlyIncome,
+                        backgroundColor: '#34D399'
+                    },
+                    {
+                        label: 'Expenses',
+                        data: monthlyExpense,
+                        backgroundColor: '#F87171'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: {
+                        display: true,
+                        text: 'Income vs Expenses (Monthly)'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock pbody%}

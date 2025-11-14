@@ -1,0 +1,62 @@
+{% extends "base.html"%}
+{% block title%}
+About Page
+{% endblock title%}
+{% block pbody %}
+
+<div class="bg-gray-50 min-h-screen flex flex-col">
+  <!-- About Section -->
+  <main class="flex-1 flex flex-col items-center justify-center text-center px-6 py-12">
+    <h1 class="text-4xl font-bold text-[var(--primary)] mb-4">About MoneyMate</h1>
+    <p class="max-w-2xl text-2xl text-gray-600  leading-relaxed">
+      👋 MoneyMate is a simple and powerful <strong>Personal Online Budget Tracker.</strong> 
+      It helps you stay on top of your <span class="text-[var(--primary)] font-semibold">income, expenses, and savings</span> 
+      in one <strong>easy-to-use</strong> platform.😊
+    </p>
+
+    <!-- Features Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mt-12">
+      <!-- Card 1 -->
+      <div class="bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition">
+        <h3 class="text-2xl font-semibold text-[var(--primary)] mb-2">💰 Track Finances</h3>
+        <p class="text-gray-600 text-xl">
+          Easily add income and expense records with categories and dates, so you never lose track of your money.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition">
+        <h3 class="text-2xl font-semibold text-[var(--primary)] mb-2">📊 View Reports</h3>
+        <p class="text-gray-600 text-xl">
+          Get real-time totals for income, expenses, and balance. Visualize your spending patterns with charts.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition">
+        <h3 class="text-2xl font-semibold text-[var(--primary)] mb-2">🔔 Bill Reminders</h3>
+        <p class="text-gray-600 text-xl">
+          Set reminders for upcoming bills and never miss a payment again. Keep your finances organized.
+        </p>
+      </div>
+    </div>
+
+    <!-- Extra Info
+    <div class="max-w-100xl mt-12 text-gray-600 text-lg">
+      <p>
+        MoneyMate is built to make <span class="font-semibold">managing money simple, smart,</span>stress-free, and 
+        accessible from anywhere. Whether you are a student, working professional, 
+        or small business owner, FinTrack helps you build better budgeting habits 
+        and achieve your financial goals.
+      </p>
+    </div> -->
+
+    <!-- CTA -->
+    <a href="{% url 'homepage' %}" 
+       class="mt-10 inline-block bg-[#284D58] text-white px-6 py-3 rounded-lg hover:opacity-90 shadow">
+      ↩️Go Back to Dashboard
+    </a>
+  </main>
+
+</div>
+{% endblock pbody %}

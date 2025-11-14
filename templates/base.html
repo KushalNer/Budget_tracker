@@ -1,0 +1,92 @@
+{% load static %}
+{% load tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        {% block title %} {% endblock title %}
+    </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% tailwind_css %}
+    {% block head %}
+    {% endblock head %}
+</head>
+
+<body class="{% block bodyclass%} {%endblock bodyclass%}">
+
+<!-- Navbar Component -->
+<nav class="bg-[#284D58] text-white px-1 py-3">
+  <div class="container mx-auto flex items-center justify-between">
+    
+    <!-- Logo & Name -->
+    <div class="flex items-center space-x-3 ">
+      <img src="/static/logo.png" alt="Logo" class="h-10 w-10 rounded-full">
+      <span class="text-xl font-bold">MoneyMate</span>
+    </div>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex space-x-8">
+      <a href="{% if user.is_authenticated %}{% url 'homepage' %} {% else %}{% url 'mainpage' %} {% endif %}" class="font-sans hover:text-gray-300 text-2xl">Home</a>
+      {% if user.is_authenticated %}
+      <a href="{% url 'reminderpage' %}" class="font-sans hover:text-gray-300 text-2xl">Reminders</a>
+      <a href="{% url 'historypage' %}" class="font-sans hover:text-gray-300 text-2xl">History</a>
+      {% endif %}
+      <a href="{% url 'aboutpage' %}" class="font-sans hover:text-gray-300 text-2xl">About</a>
+      <a href="{% url 'loginpage' %}" class="bg-white text-2xl text-[#284D58] px-4 py-1 rounded-lg font-semibold hover:bg-gray-200">Login</a>
+
+      <div class="relative group">
+      {% if user.is_authenticated %}
+      <a href=" {% url 'logoutoption'%}"><img src="/static/logout.png" alt="Logo" class="h-10 w-10 rounded-full cursor-pointer"></a>
+      <!-- Tooltip with Username -->
+      <div class="absolute top-12 left-1/2 -translate-x-1/2 bg-black text-white text-xl px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition">
+          {{ request.user.username }}
+      </div>
+    </div>
+      {% endif %}
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="menu-btn" class="md:hidden focus:outline-none">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="menu" class=" md:hidden flex flex-col space-y-3 mt-3 px-4">
+    <a href="{% if user.is_authenticated %}{% url 'homepage' %} {% else %}{% url 'mainpage' %} {% endif %}" class="hover:text-gray-300 text-2xl">Home</a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'reminderpage' %}" class="hover:text-gray-300 text-2xl">Reminders</a>
+      <a href="{% url 'historypage' %}" class="hover:text-gray-300 text-2xl">History</a>
+    {% endif %}
+      <a href="{% url 'aboutpage' %}" class="hover:text-gray-300 text-2xl">About</a>
+      <a href="{% url 'loginpage' %}" class="bg-white text-2xl text-[#284D58] px-4 py-1 rounded-lg font-semibold hover:bg-gray-200">Login</a>
+      {% if user.is_authenticated %}
+      <a href=" {% url 'logoutoption'%}"><img src="/static/logout.png" alt="Logo" class="h-10 w-10 rounded-full"></a>
+      {% endif %}
+  </div>
+</nav>
+
+
+
+<!-- Script for toggle -->
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+  menuBtn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+  });
+</script>
+
+  
+{% block pbody %}
+
+{% endblock pbody%}
+
+
+</body>
+</html>

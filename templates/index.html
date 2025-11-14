@@ -1,0 +1,67 @@
+{% extends "base.html"%}
+
+{% block title %}Welcome to MoneyMate{% endblock title %}
+
+{% block pbody %}
+ <!-- Hero Section -->
+  <section class="text-center py-16 px-6 mt-10">
+    <h1 class="text-4xl font-bold text-[#284D58] mt-b">Take Control of Your Money</h1>
+    <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+💡 Smart Budget Tracker helps you easily manage <span class="font-semibold text-[#284D58]">income</span>, 
+      manage <span class="font-semibold text-[#284D58]">expenses</span>, and stay on top of your <span class="font-semibold text-[#284D58]">savings</span> — all in one place.
+    </p>
+    <div class="mt-6 space-x-4">
+      <a href="{% url 'signuppage' %}" class="bg-[#284D58] text-white px-6 py-3 rounded-lg text-lg hover:opacity-90">🚀Get Started</a>
+      <a href="#features" class="text-[#284D58] font-medium hover:underline">Learn More</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="bg-white py-12 px-6">
+    <h2 class="text-3xl font-bold text-center text-[#284D58] mb-10">Key Features</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <!-- Feature 1 -->
+      <div class="bg-gray-50 p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold mb-2 text-[#284D58]">💰 Add Income & Expenses</h3>
+        <p class="text-gray-600 text-sm">
+          Quickly log income sources and expenses with categories to see where your money is going.
+        </p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="bg-gray-50 p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold mb-2 text-[#284D58]">📊 Real-time Balance</h3>
+        <p class="text-gray-600 text-sm">
+          Instantly view your total balance and analyze spending patterns for better decisions.
+        </p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="bg-gray-50 p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold mb-2 text-[#284D58]">🔔 Reminders & Alerts</h3>
+        <p class="text-gray-600 text-sm">
+          Get notified about upcoming bills and stay ahead of your financial commitments.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-12 px-6 bg-gray-100">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-[#284D58] mb-4">Why Choose MoneyMate?</h2>
+      <p class="text-gray-600 leading-relaxed">
+        MoneyMate makes managing your finances simple, smart, and secure. It helps you track expenses, control budgets, and grow your savings effortlessly. With easy-to-use tools, real-time insights, and clean visual reports, MoneyMate keeps you in charge of your money — anytime, anywhere.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="text-center py-12">
+    <h2 class="text-2xl font-semibold mb-4">✨Start Your Journey Today</h2>
+    <a href="{% url 'signuppage' %}" class="bg-[#284D58] text-white px-6 py-3 rounded-lg hover:opacity-90 shadow">
+      Create Your Free Account
+    </a>
+  </section>
+{% endblock pbody%}
