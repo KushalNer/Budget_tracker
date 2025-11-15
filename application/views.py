@@ -91,12 +91,14 @@ def home(request):
             return redirect('homepage')
 
         elif 'add_expense' in request.POST:
+            
             category_id = request.POST.get('category')
             amount = request.POST.get('amount')
             date = request.POST.get('date')
             type = "Expense"
-
-            if category_id and amount and date:
+            
+            
+            if category_id != "Select Category"  and amount and date:
                 #vaild ..
                 selected_date = datetime.strptime(date, "%Y-%m-%d").date()
                 if selected_date > dt.today():
@@ -108,6 +110,8 @@ def home(request):
                 data.save()
                 tran = Transaction(user=user,type=type ,category=category,amount=amount,date=date)
                 tran.save()
+            else:
+                messages.warning(request, "All fields are required")
             return redirect('homepage')
 
         elif 'add_category' in request.POST:
