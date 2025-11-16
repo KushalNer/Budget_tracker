@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-cd^)07u&f48wn4ns56u6_hd$q^c8vg7527x9i^d%xi_^uioaer
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -89,15 +89,15 @@ DATABASES = {
     }
 }
 
-
+#own database connect
 # DATABASES ={
 #     'default':{
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME' : 'budget_tracker',
-#         'USER' : 'root',
-#         'PASSWORD' : 'Dhanu@1412',
-#         'HOST' : '127.0.0.1',
-#         'PORT' : '3306',
+#         'USER' : '',
+#         'PASSWORD' : '',
+#         'HOST' : '',
+#         'PORT' : '',
 #     }
 # }
 
