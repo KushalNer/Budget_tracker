@@ -69,19 +69,31 @@
     </table>
   </div>
 
-  <!-- Optional Chart Section -->
-  <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="bg-white shadow rounded p-4">
-      <h3 class="font-bold mb-2">Category-wise Spending</h3>
-      <canvas id="categoryChart" width="700" height="400"></canvas>
-    </div>
-    
-    <div class="bg-white shadow rounded p-4">
-      <h3 class="font-bold mb-2">Monthly Income vs Expenses</h3>
-      <canvas id="monthlyBarChart" ></canvas>
+<!-- Charts Section -->
+<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+
+  <!-- Category-wise Spending (Pie Chart) -->
+  <div class="bg-white shadow rounded-lg p-4">
+    <h3 class="font-bold mb-2 text-slate-800">Category-wise Spending</h3>
+
+    <!-- Smaller Responsive Wrapper -->
+    <div class="relative h-55 sm:h-60 md:h-70">
+      <canvas id="categoryChart" class="w-full h-full"></canvas>
     </div>
   </div>
+
+  <!-- Monthly Income vs Expenses (Bar Chart) -->
+  <div class="bg-white shadow rounded-lg p-4">
+    <h3 class="font-bold mb-2 text-slate-800">Monthly Income vs Expenses</h3>
+
+    <!-- Smaller Responsive Wrapper -->
+    <div class="relative h-40 sm:h-48 md:h-56">
+      <canvas id="monthlyBarChart" class="w-full h-full"></canvas>
+    </div>
+  </div>
+
 </div>
+
 
 {% comment %} This script for Pie chart {% endcomment %}
 <script>
@@ -103,7 +115,9 @@
                 }]
             },
             options: {
-                responsive: false,
+                responsive: true,
+                
+                maintainAspectRatio: false,
                 plugins: {
                     legend: { position: 'bottom' }
                 }
@@ -138,6 +152,7 @@
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: { position: 'top' },
                     title: {
